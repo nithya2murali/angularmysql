@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Main Page</title>
+</head>
+<body ng-app="tcsdemo">
+<hr/>
+<div class="container" ng-controller="UserController">
+    <div class="row">
+        <label>UserId</label> <input type="text" ng-model="userDto.userName" class="input-sm spacing"/>
+        <button ng-click="userDto()" class="btn btn-sm btn-info">Submit</button>
+      <!--   <button ng-click="deleteUser()" class="btn btn-sm btn-info">Clear</button>-->
+   <textarea rows="4" cols="50" ng-model="userresponse"></textarea><br><br> 
+	<p>The ID is {{userresponse.user_id}}</p>
+	<p>The content is {{userresponse.theatre}}</p>
+	<p>The ID is {{userresponse.region}}</p>
+	<p>The content is {{userresponse.first_name}}</p>
+	<p>The ID is {{userresponse.last_name}}</p> 
+</div>
+</div>	
+	<script>
+	var app = angular.module('tcsdemo', [])
+app.controller('UserController', function($scope, $http) {
+    $http.get('http://localhost:8080/user/v1/getUser/$scope.userDto.userName’).
+        then(function(response) {
+            $scope.userresponse = response.data;
+        });
+
+});</script> 
+</body>
+
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/app/app.js"></script>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
+<link rel="stylesheet" href="css/app/app.css"/>
+</html>   
+        
